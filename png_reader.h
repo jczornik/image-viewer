@@ -1,5 +1,5 @@
-#ifndef __PNG_PARSER
-#define __PNG_PARSER
+#ifndef __PNG_READER
+#define __PNG_READER
 
 #include <stdint.h>
 #include <stdio.h>
