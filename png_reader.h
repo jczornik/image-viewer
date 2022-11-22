@@ -20,7 +20,7 @@ struct chunk_t {
 enum ancillary_flag { CRITICAL = 0, ANCILLARY };
 enum private_flag { PUBLIC = 0, PRIVATE };
 enum reserved_flag { CORRECT = 0, ERROR };
-enum safe_to_copy_flag { UNSAFE, SAFE };
+enum safe_to_copy_flag { UNSAFE = 0, SAFE };
 
 bool check_magic_number(FILE *img_file);
 
