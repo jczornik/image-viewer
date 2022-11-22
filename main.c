@@ -40,6 +40,14 @@ int main(int argc, char **argv) {
   while((chunk = read_chunk(img_file))) {
     printf("Reading chunk successful\n");
     printf("Chunk data length: %u\n", chunk->lenght);
+    printf("Chunk is %s\n",
+           get_ancillary_flag(chunk) ? "ANCILLARY" : "CRITICAL");
+    printf("Chunk is %s\n",
+           get_private_flag(chunk) ? "PRIVATE" : "PUBLIC");
+    printf("Chunk is %s\n",
+           get_reserved_flag(chunk) ? "ERROR" : "CORRECT");
+    printf("Chunk is %s\n",
+           get_safe_to_copy_flag(chunk) ? "SAFE" : "UNSAFE");
     free_chunk(&chunk);
   }
   fclose(img_file);
