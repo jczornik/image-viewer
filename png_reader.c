@@ -10,7 +10,7 @@
 #include <inttypes.h>
 
 #include "common.h"
-#include "png_parser.h"
+#include "png_reader.h"
 
 static const uint8_t PNG_MAGIC_NUMBER[] = {137, 80, 78, 71, 13, 10, 26, 10};
 
@@ -98,6 +98,21 @@ struct chunk_t* read_chunk(FILE *img_file) {
   data = (uint8_t*)malloc(length * sizeof(uint8_t));
   if(!data) {
     fprintf(stderr, "Cannot allocate memory for chunk data\n");
+    goto error;
+  }
+
+  if(!read_bytes_to_buffer(type, chunk_type_lenght, img_file)) {
+    fprintf(stderr, "Cannot read chunk type\n");
+    goto error;
+  }
+
+  if(!read_bytes_to_buffer(data, length, img_file)) {
+    fprintf(stderr, "Cannot read chunk data\n");
+    goto error;
+  }
+
+  if(!read_bytes_to_buffer(crc, chunk_crc_length, img_file)) {
+    fprintf(stderr, "Cannot read chunk crc\n");
     goto error;
   }
 

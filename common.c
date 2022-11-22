@@ -8,6 +8,9 @@
 #include "common.h"
 
 bool read_bytes_to_buffer(void *to, size_t length, FILE *from) {
+  if(length == 0)
+    return true;
+
   size_t read = fread(to, length, 1, from);
 
   if (read != 1) {

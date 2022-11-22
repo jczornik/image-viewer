@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "png_parser.h"
+#include "png_reader.h"
 
 int main(int argc, char **argv) {
   (void)argc;
@@ -36,17 +36,12 @@ int main(int argc, char **argv) {
 
   printf("Magic number is correct!\n");
 
-  struct chunk_t* chunk = read_chunk(img_file);
-
-  if(!chunk) {
-    fprintf(stderr, "Error reading chunk from file: %s\n", img_path);
-    exit(1);
+  struct chunk_t *chunk = NULL;
+  while((chunk = read_chunk(img_file))) {
+    printf("Reading chunk successful\n");
+    printf("Chunk data length: %u\n", chunk->lenght);
+    free_chunk(&chunk);
   }
-
-  printf("Reading chunk successful\n");
-  printf("Chunk data length: %u\n", chunk->lenght);
-  free_chunk(&chunk);
-  assert(chunk == NULL);
   fclose(img_file);
 
   return 0;
